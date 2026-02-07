@@ -1,0 +1,40 @@
+# Task: Analizzare linee guida e creare progetto Gestionale Karate
+
+- [x] Analizzare `linee_guida_antigravity.md`
+- [x] Creare la cartella `Gestionale Karate` in `C:\Users\Simone\.antigravity\Progetti`
+- [x] Seguire eventuali altre direttive trovate nelle linee guida
+- [x] Definire Tech Stack e Piano di Implementazione
+- [x] Creare Ambiente Virtuale e installare dipendenze
+- [x] Progettare Schema Database (SQLite)
+- [x] Sviluppare Interfaccia (PySide6)
+    - [x] Implementare Maschera Inserimento Atleti
+    - [x] Implementare Modifica e Visualizzazione
+    - [x] Implementazione Impostazioni (Scelta Tema)
+- [x] Miglioramento Tabella e Importazione
+    - [x] Ordinamento e Ridimensionamento Colonne
+    - [x] Importazione CSV/Excel con Mappatura
+    - [x] Estrazione Dati da Codice Fiscale e Gestione Conflitti
+    - [x] Gestione Conflitti Batch (Tutti/Nessuno/Manuale)
+- [x] Gestione Database Dinamica
+    - [x] Selezione Percorso Database all'avvio
+    - [x] Sezione Impostazioni per cambio/riconnessione/sync
+    - [x] Predisposizione Architettura Cloud Sync
+- [x] Personalizzazione Tabella Atleti
+    - [x] Rimozione colonna Azioni e doppio clic per Modifica
+    - [x] Ordinamento Colonne tramite Drag & Drop
+    - [x] Selezione dinamica colonne visibili
+    - [x] Evidenziazione Nome/Cognome e blocco colonna progressiva
+    - [x] Correzione Integrità Dati (Mix dei campi)
+- [x] Sezione Dati Associativi
+    - [x] Aggiornamento Database (Numero ASC e Ruoli)
+    - [x] Gestione Migrazione Automatica Colonne
+    - [x] Implementazione UI Multi-Selezione Ruoli
+    - [x] Integrazione nella Tabella Principale
+- [x] Aggiornamento Importazione
+    - [x] Mapping Nuovi Campi (ASC, Ruoli)
+    - [x] Gestione Conflitti su Nuovi Dati
+- [x] Internazionalizzazione (Italiano)
+- [x] Configurazione Sincronizzazione e Versionamento
+    - [x] Creazione .gitignore e requirements.txt
+    - [x] Inizializzazione Git (Completata)
+    - [x] Struttura Persistenza Storia AI
