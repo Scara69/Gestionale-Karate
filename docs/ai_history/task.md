@@ -38,3 +38,9 @@
     - [x] Creazione .gitignore e requirements.txt
     - [x] Inizializzazione Git (Completata)
     - [x] Struttura Persistenza Storia AI
+- [x] Test Sync Duale: Campo Note Atleta
+    - [x] Aggiornamento Database (Campo notes)
+    - [x] Aggiornamento UI AthleteDialog
+    - [x] Aggiornamento Tabella Principale
+    - [x] Persistenza Storia AI nel Progetto
+    - [x] Git Commit & Push Automatica

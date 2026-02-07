@@ -337,6 +337,7 @@ class MainWindow(QMainWindow):
             {"key": "email", "label": "Email"},
             {"key": "asc_number", "label": "Numero ASC"},
             {"key": "roles", "label": "Ruoli"},
+            {"key": "notes", "label": "Note"},
             {"key": "scadenza", "label": "Scad. Cert."},
         ]
         

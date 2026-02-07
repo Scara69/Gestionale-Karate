@@ -23,6 +23,7 @@ class Athlete(Base):
     current_rank = Column(String)
     asc_number = Column(String)  # Numero tessera ASC
     roles = Column(String)      # Ruoli selezionati (separati da virgola)
+    notes = Column(String)      # Note aggiuntive
     
     # Relationships
     certificates = relationship("MedicalCertificate", back_populates="athlete", cascade="all, delete-orphan", order_by="desc(MedicalCertificate.expiry_date)")
@@ -99,6 +100,14 @@ class DatabaseManager:
                     print("Aggiunta colonna 'roles' con successo.")
                 except Exception as e:
                     print(f"Errore migrazione roles: {e}")
+
+            if 'notes' not in columns:
+                try:
+                    conn.execute(text("ALTER TABLE athletes ADD COLUMN notes VARCHAR"))
+                    conn.commit()
+                    print("Aggiunta colonna 'notes' con successo.")
+                except Exception as e:
+                    print(f"Errore migrazione notes: {e}")
 
     def get_session(self):
         if not self.SessionFactory:

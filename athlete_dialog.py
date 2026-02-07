@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import (QDialog, QVBoxLayout, QHBoxLayout, QFormLayout, 
                              QLineEdit, QDateEdit, QComboBox, QPushButton, 
-                             QLabel, QGroupBox, QMessageBox, QCheckBox)
+                             QLabel, QGroupBox, QMessageBox, QCheckBox,
+                             QTextEdit)
 from PySide6.QtCore import QDate, Qt
 from database import Athlete, MedicalCertificate, Rank, get_session
 import datetime
@@ -96,6 +97,15 @@ class AthleteDialog(QDialog):
         assoc_form.addRow("Ruoli:", roles_layout)
         
         self.layout.addWidget(assoc_group)
+
+        # Note
+        note_group = QGroupBox("Note")
+        note_layout = QVBoxLayout(note_group)
+        self.notes_input = QTextEdit()
+        self.notes_input.setPlaceholderText("Inserisci qui note aggiuntive...")
+        self.notes_input.setMaximumHeight(100)
+        note_layout.addWidget(self.notes_input)
+        self.layout.addWidget(note_group)
         
         # Bottoni
         button_layout = QHBoxLayout()
@@ -158,6 +168,8 @@ class AthleteDialog(QDialog):
             self.role_dirigente.setChecked("Dirigente" in roles)
             self.role_agonista.setChecked("Agonista" in roles)
             
+            self.notes_input.setPlainText(athlete.notes or "")
+            
             cert = athlete.latest_certificate
             if cert:
                 self.cert_type_input.setCurrentText(cert.cert_type)
@@ -199,6 +211,7 @@ class AthleteDialog(QDialog):
             if self.role_dirigente.isChecked(): selected_roles.append("Dirigente")
             if self.role_agonista.isChecked(): selected_roles.append("Agonista")
             athlete.roles = ",".join(selected_roles)
+            athlete.notes = self.notes_input.toPlainText()
             
             # Handle Certificate (simplified: create or update most recent)
             cert_type = self.cert_type_input.currentText()
