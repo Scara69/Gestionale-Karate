@@ -11,9 +11,15 @@ class AthleteDialog(QDialog):
         super().__init__(parent)
         self.athlete_id = athlete_id
         self.setWindowTitle("Aggiungi Atleta" if not athlete_id else "Modifica Atleta")
-        self.setMinimumWidth(450)
+        self.setMinimumWidth(850)
         
-        self.layout = QVBoxLayout(self)
+        main_layout = QVBoxLayout(self)
+        
+        # Horizontal layout for the two columns
+        columns_layout = QHBoxLayout()
+        
+        # Left Column
+        left_column = QVBoxLayout()
         
         # Dati Personali
         personal_group = QGroupBox("Dati Personali")
@@ -41,7 +47,11 @@ class AthleteDialog(QDialog):
         personal_form.addRow("Telefono:", self.phone_input)
         personal_form.addRow("Email:", self.email_input)
         
-        self.layout.addWidget(personal_group)
+        left_column.addWidget(personal_group)
+        left_column.addStretch() # Push everything up in the left column
+        
+        # Right Column
+        right_column = QVBoxLayout()
         
         # Certificato Medico
         medical_group = QGroupBox("Certificato Medico")
@@ -57,7 +67,7 @@ class AthleteDialog(QDialog):
         medical_form.addRow("Tipo Certificato:", self.cert_type_input)
         medical_form.addRow("Data Scadenza:", self.cert_expiry_input)
         
-        self.layout.addWidget(medical_group)
+        right_column.addWidget(medical_group)
         
         # Grado e Cintura
         rank_group = QGroupBox("Grado Tecnico")
@@ -75,7 +85,7 @@ class AthleteDialog(QDialog):
         rank_form.addRow("Colore Cintura:", self.belt_input)
         rank_form.addRow("Grado:", self.rank_input)
         
-        self.layout.addWidget(rank_group)
+        right_column.addWidget(rank_group)
 
         # Dati Associativi
         assoc_group = QGroupBox("Dati Associativi")
@@ -96,16 +106,24 @@ class AthleteDialog(QDialog):
         roles_layout.addWidget(self.role_agonista)
         assoc_form.addRow("Ruoli:", roles_layout)
         
-        self.layout.addWidget(assoc_group)
+        right_column.addWidget(assoc_group)
 
         # Note
         note_group = QGroupBox("Note")
         note_layout = QVBoxLayout(note_group)
         self.notes_input = QTextEdit()
         self.notes_input.setPlaceholderText("Inserisci qui note aggiuntive...")
-        self.notes_input.setMaximumHeight(100)
+        self.notes_input.setMaximumHeight(80) # Slightly reduced to save more space
         note_layout.addWidget(self.notes_input)
-        self.layout.addWidget(note_group)
+        right_column.addWidget(note_group)
+        
+        right_column.addStretch() # Push everything up in the right column
+        
+        # Assemble columns
+        columns_layout.addLayout(left_column, 4) # Weighted slightly more for labels
+        columns_layout.addLayout(right_column, 6)
+        
+        main_layout.addLayout(columns_layout)
         
         # Bottoni
         button_layout = QHBoxLayout()
@@ -125,7 +143,7 @@ class AthleteDialog(QDialog):
         
         button_layout.addWidget(self.btn_save)
         button_layout.addWidget(self.btn_cancel)
-        self.layout.addLayout(button_layout)
+        main_layout.addLayout(button_layout)
         
         if self.athlete_id:
             self.load_athlete_data()

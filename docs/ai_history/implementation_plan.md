@@ -1,41 +1,28 @@
-# Implementation Plan - Associative Data Section
+# Riorganizzazione Layout AthleteDialog
 
-Add a new section to the athlete's details and update the import functionality to support ASC membership information and administrative/athletic roles.
+L'obiettivo è trasformare il layout da una singola colonna verticale a due colonne orizzontali per migliorare l'usabilità su schermi con risoluzione verticale limitata.
 
-## User Review Required
+## Modifiche Proposte
 
-> [!IMPORTANT]
-> **Data Persistence**: Roles will be saved as a multi-selection. If an athlete has multiple roles, they will all be preserved.
-> **Extensibility**: The system is designed to allow adding more roles in the future easily.
+### [Component: UI]
 
-## Proposed Changes
+#### [MODIFY] [athlete_dialog.py](file:///c:/Users/Gloria/.gemini/antigravity/Gestionale-Karate/athlete_dialog.py)
 
-### [Database]
-- **[MODIFY]** `database.py`:
-    - Add `asc_number` (String) to the `Athlete` model.
-    - Add `roles` (String) to the `Athlete` model to store selected roles (e.g., as a separated string).
+- Introdurre un `QHBoxLayout` come contenitore principale (sotto il titolo se presente, o come layout base).
+- Creare due `QVBoxLayout` per rappresentare le due colonne.
+- **Colonna 1 (Sinistra):**
+    - `personal_group` (Dati Personali) - questo è il gruppo più lungo.
+- **Colonna 2 (Destra):**
+    - `medical_group` (Certificato Medico)
+    - `rank_group` (Grado Tecnico)
+    - `assoc_group` (Dati Associativi)
+    - `note_group` (Note)
+- Aggiungere uno `stretch` in fondo alla colonna 2 se necessario per allineare i gruppi verso l'alto.
+- Aumentare la larghezza minima della finestra (`setMinimumWidth`) per accomodare le due colonne (es. da 450 a 800-900).
 
-### [Athlete Dialog]
-- **[MODIFY]** `athlete_dialog.py`:
-    - **UI**: Add a new `QGroupBox` titled "DATI ASSOCIATIVI".
-    - **Fields**: Include a `QLineEdit` for the ASC number and a set of `QCheckBox` for roles ("Atleta", "Praticante", "Dirigente", "Agonista").
-    - **Logic**: Update `load_athlete_data` to read these values and `save_athlete` to persist them.
+## Piano di Verifica
 
-### [Main Table]
-- **[MODIFY]** `main.py`:
-    - Update `all_columns` configuration to include "Numero ASC" and "Ruoli", allowing users to show them in the main table if desired.
-
-### [Import Functionality]
-- **[MODIFY]** `import_dialog.py`:
-    - Add "Numero di tessera ASC" and "Ruoli" to the mapping dictionary.
-- **[MODIFY]** `conflict_dialog.py`:
-    - Add "asc_number" and "roles" to the fields compared during manual conflict resolution.
-
-## Verification Plan
-
-### Manual Verification
-1.  Open an athlete's profile.
-2.  Fill in the ASC number and select multiple roles (e.g., Atleta and Dirigente).
-3.  Save and reopen: verify that all selections are correctly loaded.
-4.  In the main table, use the "Colonne" button to show the new "Ruoli" and "Numero ASC" columns: verify they display correctly.
-5.  **Import Test**: Import a CSV file containing ASC numbers and roles. Verify that the mapping works and data is imported correctly, including conflict resolution.
+### Verifica Manuale
+- Aprire la finestra di aggiunta/modifica atleta.
+- Verificare che tutti i campi siano visibili senza eccessivo scrolling.
+- Verificare che il layout rimanga armonioso ridimensionando la finestra.
